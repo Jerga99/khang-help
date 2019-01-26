@@ -6,6 +6,7 @@ import { Component, OnInit } from "@angular/core";
   styleUrls: ["./rental.component.scss"]
 })
 export class RentalComponent implements OnInit {
+  private rentals: any[];
   constructor() {}
 
   ngOnInit() {}
