@@ -5,6 +5,8 @@
 /tmp
 /out-tsc
 
+#Hide API key
+/src/app/components/map/map.module.ts
 # dependencies
 /node_modules
 

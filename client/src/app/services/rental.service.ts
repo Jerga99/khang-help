@@ -1,9 +1,25 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
+import { Observable } from "rxjs";
+import { Rental } from "../models/rental.model";
+import { HttpClient } from "@angular/common/http";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: "root"
 })
 export class RentalService {
+  private readonly rootURL = "http://localhost:3001/api/rentals";
+  constructor(private httpClient: HttpClient) {}
 
-  constructor() { }
+  public getRentalById(rentalId: string): Observable<any> {
+    return this.httpClient.get(this.rootURL + "/" + rentalId);
+  }
+
+  private getHeaders() {
+    return { "content-type": "application-json" };
+  }
+  public getRentals(): Observable<any> {
+    // we can only use arrow function here because it will bind the outer context
+    // to this context. we CAN'T use the function method here because it won't do the same way
+    return this.httpClient.get(this.rootURL);
+  }
 }
