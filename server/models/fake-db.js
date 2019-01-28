@@ -1,6 +1,6 @@
 const Rental = require("./rental");
 const mongoose = require("mongoose");
-
+const User = require("./user");
 class Fakedb {
   constructor() {
     this.rentals = [
@@ -41,23 +41,38 @@ class Fakedb {
         dailyRate: 23
       }
     ];
+
+    this.users = [
+      {
+        username: "test",
+        email: "test@test.com",
+        password: "minhkhang"
+      }
+    ];
   }
+
   async cleanDb() {
+    await User.remove({});
     //  we will wait to remove first as synchronously before we can push it back
     await Rental.remove({});
   }
 
-  pushRentalsToDb() {
+  pushDataToDb() {
+    const user = new User(this.users[0]);
+
     this.rentals.forEach(rental => {
       const newRental = new Rental(rental);
+      newRental.user = user;
 
+      user.rentals.push(newRental);
       newRental.save();
     });
+    user.save();
   }
 
-  seedDb() {
-    this.cleanDb();
-    this.pushRentalsToDb();
+  async seedDb() {
+    await this.cleanDb();
+    this.pushDataToDb();
   }
 }
 

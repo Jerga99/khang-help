@@ -8,10 +8,11 @@ const Rental = require("./models/rental");
 
 const FakeDb = require("./models/fake-db");
 
-const rentalRoutes = require("../server/routes/rentals");
+const rentalRoutes = require("../server/routes/rentals"),
+  userRoutes = require("../server/routes/users");
 
 const cors = require("cors");
-
+const bodyParser = require("body-parser");
 app.use(cors());
 mongoose
   .connect(
@@ -27,8 +28,11 @@ mongoose
     console.log("connected to the db");
   })
   .catch(err => console.log(err));
-app.use("/api/rentals", rentalRoutes);
 
+app.use(bodyParser.json());
+
+app.use("/api/rentals", rentalRoutes);
+app.use("/api/users", userRoutes);
 //
 const PORT = process.env.PORT || 3001;
 

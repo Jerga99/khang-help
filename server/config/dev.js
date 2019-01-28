@@ -1,3 +1,4 @@
 module.exports = {
-  DB_URL: "mongodb://localhost/rental"
+  DB_URL: "mongodb://localhost/rental",
+  SECRET: "khang"
 };
