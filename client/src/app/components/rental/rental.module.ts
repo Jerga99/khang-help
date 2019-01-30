@@ -17,6 +17,7 @@ import {
 
 import { NgPipesModule } from "ngx-pipes";
 import { MapModule } from "../map/map.module";
+import { AuthGuard } from "../auth/auth.guard";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -25,7 +26,11 @@ const routes: Routes = [
     component: RentalComponent,
     children: [
       { path: "", component: RentalListComponent },
-      { path: ":rentalId", component: RentalDetailComponent }
+      {
+        path: ":rentalId",
+        component: RentalDetailComponent,
+        canActivate: [AuthGuard]
+      }
     ]
   }
 ];

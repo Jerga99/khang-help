@@ -7,9 +7,10 @@ import { MatButtonModule } from "@angular/material/button";
 
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { AuthService } from "../../services/auth.service";
+import { AuthGuard } from "./auth.guard";
 const routes: Routes = [
-  { path: "login", component: LoginComponent },
-  { path: "register", component: RegisterComponent }
+  { path: "login", component: LoginComponent, canActivate: [AuthGuard] },
+  { path: "register", component: RegisterComponent, canActivate: [AuthGuard] }
 ];
 
 @NgModule({
@@ -21,6 +22,6 @@ const routes: Routes = [
     MatButtonModule,
     ReactiveFormsModule
   ],
-  providers: [AuthService]
+  providers: [AuthService, AuthGuard]
 })
 export class AuthModule {}
