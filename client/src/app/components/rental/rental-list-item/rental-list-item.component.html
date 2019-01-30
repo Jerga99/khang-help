@@ -2,7 +2,7 @@
   <div class="card bwm-card">
     <img class="card-img-top" src="{{ childRental.image }}" alt="" />
     <div class="card-block">
-      <h6 class="card-subtitle">
+      <h6 class="card-subtitle {{ childRental.category }}">
         {{ childRental.shared ? "Shared" : "Whole" }}
         {{ childRental.category }} &#183; {{ childRental.city }}
       </h6>
