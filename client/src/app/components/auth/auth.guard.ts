@@ -22,10 +22,11 @@ export class AuthGuard implements CanActivate {
   }
 
   private handleNotAuthState(): boolean {
-    if (!this.isLoginOrRegister()) {
+    if (this.isLoginOrRegister()) {
       return true;
     }
     this.router.navigate(["login"]);
+    return false;
   }
 
   private isLoginOrRegister(): boolean {

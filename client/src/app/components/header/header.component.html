@@ -29,18 +29,18 @@
   </button>
   <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
     <div class="navbar-nav ml-auto">
-      <ng-container *ngIf="!authService.isAuthenticated()">
+      <ng-container *ngIf="!isAuthenticated()">
         <a class="nav-item nav-link active" routerLink="login"
           >Login <span class="sr-only">(current)</span></a
         >
         <a class="nav-item nav-link" routerLink="register">Register</a>
       </ng-container>
-      <a class="nav-item nav-link logOut" *ngIf="authService.isAuthenticated()"
-        >Currently Loggin as {{ authService.getUserName() }}</a
+      <a class="nav-item nav-link logOut" *ngIf="isAuthenticated()"
+        >Currently Loggin as {{ getUserName() }}</a
       >
       <a
         class="nav-item nav-link logOut"
-        *ngIf="authService.isAuthenticated()"
+        *ngIf="isAuthenticated()"
         (click)="logOut()"
         >Logout</a
       >
