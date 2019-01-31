@@ -7,7 +7,6 @@ exports.get = (req, res) => {
 
 exports.getId = (req, res) => {
   const rentalId = req.params.id;
-  console.log(rentalId);
   Rental.findById(rentalId, function(err, foundRentals) {
     if (err) {
       res.status(422).send({

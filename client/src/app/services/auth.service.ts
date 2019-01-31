@@ -61,4 +61,8 @@ export class AuthService {
   public getUserName(): string {
     return this.decodedToken.username;
   }
+
+  public getAuthToken(): string {
+    return localStorage.getItem("rental_auth");
+  }
 }

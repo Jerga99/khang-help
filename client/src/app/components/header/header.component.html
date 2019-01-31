@@ -35,15 +35,13 @@
         >
         <a class="nav-item nav-link" routerLink="register">Register</a>
       </ng-container>
-      <a class="nav-item nav-link logOut" *ngIf="isAuthenticated()"
-        >Currently Loggin as {{ getUserName() }}</a
-      >
-      <a
-        class="nav-item nav-link logOut"
-        *ngIf="isAuthenticated()"
-        (click)="logOut()"
-        >Logout</a
-      >
+
+      <ng-container *ngIf="isAuthenticated()">
+        <a class="nav-item nav-link logOut"
+          >Currently Loggin as {{ getUserName() }}</a
+        >
+        <a class="nav-item nav-link logOut" (click)="logOut()">Logout</a>
+      </ng-container>
     </div>
   </div>
 </nav>

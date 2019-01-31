@@ -18,6 +18,9 @@ import {
 import { NgPipesModule } from "ngx-pipes";
 import { MapModule } from "../map/map.module";
 import { AuthGuard } from "../auth/auth.guard";
+
+import { Daterangepicker } from "ng2-daterangepicker";
+import { RentalDetailBookingComponent } from "./rental-detail/rental-detail-booking/rental-detail-booking.component";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -40,14 +43,16 @@ const routes: Routes = [
     RentalListComponent,
     RentalListItemComponent,
     RentalComponent,
-    RentalDetailComponent
+    RentalDetailComponent,
+    RentalDetailBookingComponent
   ],
   imports: [
     CommonModule,
     RouterModule.forChild(routes),
     HttpClientModule,
     NgPipesModule,
-    MapModule
+    MapModule,
+    Daterangepicker
   ],
 
   // service inside the providers:

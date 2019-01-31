@@ -69,7 +69,7 @@ export class LoginComponent implements OnInit {
 
       errorResponse => {
         console.log(errorResponse);
-        this.errors = errorResponse.error.errors;
+        this.errors = errorResponse.error.err;
       },
 
       () => {}

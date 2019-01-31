@@ -10,6 +10,7 @@ const FakeDb = require("./models/fake-db");
 
 const rentalRoutes = require("../server/routes/rentals"),
   userRoutes = require("../server/routes/users");
+bookingRoute = require("../server/routes/bookings");
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -33,6 +34,7 @@ app.use(bodyParser.json());
 
 app.use("/api/rentals", rentalRoutes);
 app.use("/api/users", userRoutes);
+app.use("/api/bookings", bookingRoute);
 //
 const PORT = process.env.PORT || 3001;
 

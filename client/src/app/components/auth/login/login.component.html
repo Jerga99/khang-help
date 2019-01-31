@@ -38,7 +38,8 @@
           >
             Submit
           </button>
-
+          <br />
+          <br />
           <div *ngIf="errors.length > 0" class="alert alert-danger">
             <a *ngFor="let error of errors"> {{ error.detail }} </a>
           </div>
