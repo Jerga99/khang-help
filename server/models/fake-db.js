@@ -12,7 +12,7 @@ class Fakedb {
         image:
           "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
         bedrooms: 4,
-        shared: true,
+        shared: false,
         description: "Very nice apartment in center of the city.",
         dailyRate: 43
       },
@@ -24,7 +24,7 @@ class Fakedb {
         image:
           "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
         bedrooms: 1,
-        shared: false,
+        shared: true,
         description: "Very nice apartment in center of the city.",
         dailyRate: 11
       },
@@ -36,9 +36,57 @@ class Fakedb {
         image:
           "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
         bedrooms: 5,
-        shared: true,
+        shared: false,
         description: "Very nice apartment in center of the city.",
         dailyRate: 23
+      },
+      {
+        title: "Amazing modern place",
+        city: "San Francisco",
+        street: "Green street",
+        category: "house",
+        image:
+          "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+        bedrooms: 2,
+        shared: false,
+        description: "Hiking routes 10 min walking away",
+        dailyRate: 140
+      },
+      {
+        title: "Apartment In China Town",
+        city: "San Francisco",
+        street: "Union Street",
+        category: "apartment",
+        image:
+          "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+        bedrooms: 3,
+        shared: false,
+        description: "Very nice apartment in China Town",
+        dailyRate: 89
+      },
+      {
+        title: "House with Garden",
+        city: "New York",
+        street: "Long Island, Queens",
+        category: "house",
+        image:
+          "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+        bedrooms: 6,
+        shared: false,
+        description: "Very nice house in Long Island with garden",
+        dailyRate: 189
+      },
+      {
+        title: "Cozy modern Condo",
+        city: "New York",
+        street: "Penn Station",
+        category: "condo",
+        image:
+          "https://booksync-jerga-prod.s3.amazonaws.com/uploads/rental/image/5/image.jpeg",
+        bedrooms: 3,
+        shared: true,
+        description: "Building close to Penn Station",
+        dailyRate: 68
       }
     ];
 

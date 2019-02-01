@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 const rentalSchema = new Schema({
-  starAt: { type: Date, required: "Starting Date is required" },
+  startAt: { type: Date, required: "Starting Date is required" },
   endAt: { type: Date, required: "Starting Date is required" },
   totalPrice: Number,
   days: Number,

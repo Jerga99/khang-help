@@ -16,13 +16,10 @@ const cors = require("cors");
 const bodyParser = require("body-parser");
 app.use(cors());
 mongoose
-  .connect(
-    config.DB_URL,
-    {
-      useNewUrlParser: true,
-      useCreateIndex: true
-    }
-  )
+  .connect(config.DB_URL, {
+    useNewUrlParser: true,
+    useCreateIndex: true
+  })
   .then(() => {
     const fakeDb = new FakeDb();
     // fakeDb.seedDb();

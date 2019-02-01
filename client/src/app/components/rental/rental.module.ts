@@ -21,6 +21,7 @@ import { AuthGuard } from "../auth/auth.guard";
 
 import { Daterangepicker } from "ng2-daterangepicker";
 import { RentalDetailBookingComponent } from "./rental-detail/rental-detail-booking/rental-detail-booking.component";
+import { HelperService } from "../../services/helper.service";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -56,6 +57,6 @@ const routes: Routes = [
   ],
 
   // service inside the providers:
-  providers: [RentalService, HttpClient]
+  providers: [RentalService, HttpClient, HelperService]
 })
 export class RentalModule {}

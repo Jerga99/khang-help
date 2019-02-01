@@ -1,7 +1,8 @@
 const Booking = require("../models/booking");
 const Rental = require("../models/rental");
 const { normalizeErrors } = require("../helpers/mongoose");
-
+const moment = require("moment");
+const User = require("../models/user");
 exports.create = (req, res) => {
   const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
   const user = res.locals.user;
@@ -13,7 +14,6 @@ exports.create = (req, res) => {
     guests,
     days
   });
-
   Rental.findById(rental._id)
     .populate("bookings")
     .populate("user")
@@ -34,9 +34,55 @@ exports.create = (req, res) => {
           ]
         });
       }
+      if (isValidBooking(booking, foundRental)) {
+        booking.user = user;
+        booking.rental = foundRental;
+        foundRental.bookings.push(booking);
 
-      // check here for valid booking
+        booking.save(err => {
+          if (err) {
+            return res.status(422).send({
+              errors: normalizeErrors(err.errors)
+            });
+          }
+          foundRental.save();
+          User.update(
+            { _id: user.id },
+            { $push: { bookings: booking }, function() {} }
+          );
+          return res.json({ startAt: booking.startAt, endAt: booking.endAt });
+        });
 
-      return res.json({ booking, foundRental });
+        // UPDATE rental update user
+      } else {
+        return res.status(422).send({
+          err: [
+            {
+              title: "Invalid Booking!",
+              detail: "Choosend dates are already taken"
+            }
+          ]
+        });
+      }
     });
+};
+
+isValidBooking = (proposedBooking, rental) => {
+  let isValid = true;
+  if (rental.bookings && rental.bookings.length > 0) {
+    isValid = rental.bookings.every(booking => {
+      const proposedStart = moment(proposedBooking.startAt);
+      const proposedEnd = moment(proposedBooking.endAt);
+
+      const actualStart = moment(booking.startAt);
+      const actualEnd = moment(booking.endAt);
+
+      return (
+        (actualStart < proposedStart && actualEnd < proposedStart) ||
+        (proposedEnd < actualEnd && proposedEnd < actualStart)
+      );
+    });
+  }
+
+  return isValid;
 };
