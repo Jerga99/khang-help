@@ -10,6 +10,8 @@ import { MapModule } from "./components/map/map.module";
 import { AuthModule } from "./components/auth/auth.module";
 import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from "@angular/material/button";
+import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
+import { ToastrModule } from "ngx-toastr";
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
@@ -19,7 +21,10 @@ import { MatButtonModule } from "@angular/material/button";
     MapModule,
     AuthModule,
     BrowserAnimationsModule,
-    MatButtonModule
+    MatButtonModule,
+    NgbModule,
+    ToastrModule.forRoot(),
+    BrowserAnimationsModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
