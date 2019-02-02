@@ -59,7 +59,7 @@ exports.create = (req, res) => {
           err: [
             {
               title: "Invalid Booking!",
-              detail: "Choosend dates are already taken"
+              detail: "Choosen dates are already taken"
             }
           ]
         });
