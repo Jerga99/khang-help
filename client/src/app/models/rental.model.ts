@@ -1,6 +1,8 @@
-import { Booking } from './booking.model';
+import { Booking } from "./booking.model";
 
 export class Rental {
+  static readonly CATEGORIES = ["house", "apartment", "condo"];
+
   _id: string;
   title: string;
   city: string;
@@ -12,5 +14,5 @@ export class Rental {
   dailyRate: number;
   shared: boolean;
   createdAt: string;
-  bookings: Booking[]
+  bookings: Booking[];
 }

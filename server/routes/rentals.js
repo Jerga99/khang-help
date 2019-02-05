@@ -8,6 +8,7 @@ router.get(
   UserController.authMiddleware,
   RentalController.getSecret
 );
-router.get("", RentalController.get);
+router.get("", UserController.authMiddleware, RentalController.get);
 router.get("/:id", RentalController.getId);
+router.post("", UserController.authMiddleware, RentalController.post);
 module.exports = router;

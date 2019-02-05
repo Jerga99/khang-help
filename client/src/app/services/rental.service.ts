@@ -22,4 +22,14 @@ export class RentalService {
     // to this context. we CAN'T use the function method here because it won't do the same way
     return this.httpClient.get(this.rootURL);
   }
+
+  public getRentalsByCity(city: string): Observable<any> {
+    // we can only use arrow function here because it will bind the outer context
+    // to this context. we CAN'T use the function method here because it won't do the same way
+    return this.httpClient.get(this.rootURL + `?city=${city}`);
+  }
+
+  public createRental(rental: Rental): Observable<any> {
+    return this.httpClient.post(this.rootURL, rental);
+  }
 }

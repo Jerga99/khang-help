@@ -28,4 +28,8 @@ export class HeaderComponent implements OnInit {
   getUserName() {
     return this.authService.getUserName();
   }
+
+  search(city: string) {
+    this.router.navigate([`/rentals/${city}/homes`]);
+  }
 }

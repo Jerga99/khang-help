@@ -24,6 +24,8 @@ import { RentalDetailBookingComponent } from "./rental-detail/rental-detail-book
 import { HelperService } from "../../services/helper.service";
 import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BookingService } from "src/app/services/booking.service";
+import { RentalSearchComponent } from "./rental-search/rental-search.component";
+import { RentalCreateComponent } from "./rental-create/rental-create.component";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -33,10 +35,16 @@ const routes: Routes = [
     children: [
       { path: "", component: RentalListComponent },
       {
+        path: "new",
+        component: RentalCreateComponent,
+        canActivate: [AuthGuard]
+      },
+      {
         path: ":rentalId",
         component: RentalDetailComponent,
         canActivate: [AuthGuard]
-      }
+      },
+      { path: ":city/homes", component: RentalSearchComponent }
     ]
   }
 ];
@@ -47,7 +55,9 @@ const routes: Routes = [
     RentalListItemComponent,
     RentalComponent,
     RentalDetailComponent,
-    RentalDetailBookingComponent
+    RentalDetailBookingComponent,
+    RentalSearchComponent,
+    RentalCreateComponent
   ],
   imports: [
     CommonModule,
