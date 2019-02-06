@@ -40,6 +40,28 @@
       </ng-container>
 
       <ng-container *ngIf="isAuthenticated()">
+        <div class="nav-item dropdown clickable">
+          <a
+            class="nav-link dropdown-toggle"
+            id="navbarDropdownMenuLink"
+            data-toggle="dropdown"
+            aria-haspopup="true"
+            aria-expanded="false"
+          >
+            Owner Section
+          </a>
+          <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+            <a class="dropdown-item" routerLink="/rentals/new">Create Rental</a>
+            <a class="dropdown-item" routerLink="/manage/bookings"
+              >Manage Bookings</a
+            >
+            <a class="dropdown-item" routerLink="/manage/rentals"
+              >Manage Rentals</a
+            >
+          </div>
+        </div>
+
+        <!-- https://api.adorable.io/avatars/285/abott@adorable.png -->
         <a class="nav-item nav-link logOut"
           >Currently Loggin as {{ getUserName() }}</a
         >

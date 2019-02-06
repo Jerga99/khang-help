@@ -47,7 +47,7 @@ export class RentalDetailBookingComponent implements OnInit {
   constructor(
     private helperService: HelperService,
     private modalService: NgbModal,
-    private authService: AuthService,
+    public authService: AuthService,
     private bookingService: BookingService,
     private toastr: ToastrService
   ) {}
@@ -71,10 +71,6 @@ export class RentalDetailBookingComponent implements OnInit {
         this.bookedOutDates.push(...dateRange);
       });
     }
-  }
-
-  private isAuthenticated() {
-    return this.authService.isAuthenticated();
   }
 
   private checkForInvalidDates(date) {

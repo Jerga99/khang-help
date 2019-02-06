@@ -12,6 +12,8 @@ import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
 import { MatButtonModule } from "@angular/material/button";
 import { NgbModule } from "@ng-bootstrap/ng-bootstrap";
 import { ToastrModule } from "ngx-toastr";
+import { ManageModule } from "./components/manage/manage.module";
+
 @NgModule({
   declarations: [AppComponent, HeaderComponent],
   imports: [
@@ -24,7 +26,8 @@ import { ToastrModule } from "ngx-toastr";
     MatButtonModule,
     NgbModule,
     ToastrModule.forRoot(),
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ManageModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]

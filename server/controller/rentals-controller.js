@@ -1,32 +1,21 @@
 const Rental = require("../models/rental");
 const { normalizeErrors } = require("../helpers/mongoose");
 const User = require("../models/user");
+exports.getSecret = (req, res) => {
+  res.json({ secret: true });
+};
 
-exports.get = (req, res) => {
-  const city = req.query.city;
-  const query = city ? { city: city.toLowerCase() } : {};
-  // we don't want to get the bookings
-  // we don't need bookings in the listing page
-  Rental.find(query)
-    .select("-bookings")
-    .exec((err, foundRental) => {
+exports.getManage = (req, res) => {
+  const user = res.locals.user;
+
+  // key and value is the same so we can just write user here
+  Rental.where({ user })
+    .populate("bookings")
+    .exec((err, foundRentals) => {
       if (err) {
-        return res.status(422).send({
-          errors: normalizeErrors(err.errors)
-        });
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
       }
-
-      if (city && foundRental.length === 0) {
-        return res.status(422).send({
-          err: [
-            {
-              title: "No Rentals Found!",
-              detail: `There are no rentals for city ${city}`
-            }
-          ]
-        });
-      }
-      return res.json(foundRental);
+      return res.json(foundRentals);
     });
 };
 
@@ -82,6 +71,79 @@ exports.post = (req, res) => {
   });
 };
 
-exports.getSecret = (req, res) => {
-  res.json({ secret: true });
+exports.delete = (req, res) => {
+  const user = res.locals.user;
+
+  Rental.findById(req.params.id)
+    .populate("user", "_id")
+    .populate({
+      path: "bookings",
+      select: "startAt",
+      match: {
+        // check only to delete the rental that only book in the FUTURE
+        // not the one that ALREADY BOOKED
+        startAt: { $gt: new Date() }
+      }
+    })
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
+      if (user.id !== foundRental.user.id) {
+        res.status(422).send({
+          err: [
+            {
+              title: "Invalid User!",
+              detail: "You're not the owner of this rental"
+            }
+          ]
+        });
+      }
+
+      if (foundRental.bookings.length > 0) {
+        res.status(422).send({
+          err: [
+            {
+              title: "Active Bookings!",
+              detail: "Cannot delete rental with active bookings"
+            }
+          ]
+        });
+      }
+
+      foundRental.remove(err => {
+        if (err) {
+          return res.status(422).send({ errors: normalizeErrors(err.errors) });
+        }
+        return res.json({ status: "deleted" });
+      });
+    });
+};
+
+exports.get = (req, res) => {
+  const city = req.query.city;
+  const query = city ? { city: city.toLowerCase() } : {};
+  // we don't want to get the bookings
+  // we don't need bookings in the listing page
+  Rental.find(query)
+    .select("-bookings")
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({
+          errors: normalizeErrors(err.errors)
+        });
+      }
+
+      if (city && foundRental.length === 0) {
+        return res.status(422).send({
+          err: [
+            {
+              title: "No Rentals Found!",
+              detail: `There are no rentals for city ${city}`
+            }
+          ]
+        });
+      }
+      return res.json(foundRental);
+    });
 };

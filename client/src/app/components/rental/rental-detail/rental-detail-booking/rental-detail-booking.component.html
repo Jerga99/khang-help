@@ -3,7 +3,8 @@
     ${{ rental.dailyRate }} <span class="booking-per-night">per night</span>
   </h3>
   <hr />
-  <ng-container *ngIf="isAuthenticated()">
+
+  <ng-container *ngIf="authService.isAuthenticated()">
     <form #bookingForm="ngForm">
       <label>Dates</label>
       <input
@@ -36,9 +37,14 @@
     >
       Reserve place now
     </button>
-  </ng-container>
 
-  <hr />
+    <hr />
+  </ng-container>
+  <div *ngIf="!authService.isAuthenticated()" class="should-login">
+    <a routerLink="/login" class="btn btn-bwm">
+      Login and book this place today
+    </a>
+  </div>
   <p #bookingNoteTitle class="booking-note-title">
     People are interested into this house
   </p>

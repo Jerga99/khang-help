@@ -32,4 +32,8 @@ export class RentalService {
   public createRental(rental: Rental): Observable<any> {
     return this.httpClient.post(this.rootURL, rental);
   }
+
+  public getUserRentals(): Observable<any> {
+    return this.httpClient.get(this.rootURL + "/manage");
+  }
 }

@@ -12,6 +12,7 @@
               id="title"
               name="title"
               [(ngModel)]="newRental.title"
+              required
             />
           </div>
 
@@ -23,6 +24,7 @@
               id="city"
               name="city"
               [(ngModel)]="newRental.city"
+              required
             />
           </div>
 
@@ -34,6 +36,7 @@
               id="street"
               name="street"
               [(ngModel)]="newRental.street"
+              required
             />
           </div>
 
@@ -45,6 +48,7 @@
               id="city"
               name="category"
               [(ngModel)]="newRental.category"
+              required
             >
               <option *ngFor="let category of rentalCategories">
                 {{ category }}
@@ -61,6 +65,7 @@
               id="image"
               placeholder="Upload file..."
               (change)="handleImageChange()"
+              required
             />
           </div>
 
@@ -72,6 +77,7 @@
               id="bedrooms"
               name="bedrooms"
               [(ngModel)]="newRental.bedrooms"
+              required
             />
           </div>
 
@@ -83,6 +89,7 @@
               id="description"
               name="description"
               [(ngModel)]="newRental.description"
+              required
             >
             </textarea>
           </div>
@@ -99,6 +106,7 @@
                 class="form-control"
                 id="dailyRate"
                 [(ngModel)]="newRental.dailyRate"
+                required
               />
             </div>
           </div>
@@ -107,10 +115,18 @@
             <label for="shared">Shared</label>
             <input type="checkbox" class="form-control" id="shared" />
           </div>
-          <button (click)="createRental()" type="button" class="btn btn-bwm">
+          <button
+            [disabled]="!rentalForm.form.valid"
+            (click)="createRental()"
+            type="button"
+            class="btn btn-bwm"
+          >
             Submit
           </button>
         </form>
+        <div *ngIf="errors.length > 0" class="alert alert-danger">
+          <a *ngFor="let error of errors"> {{ error.detail }} </a>
+        </div>
       </div>
       <div class="col-md-6 ml-auto">
         <div class="image-container">

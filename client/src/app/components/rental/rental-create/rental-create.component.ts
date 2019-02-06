@@ -1,6 +1,8 @@
 import { Component, OnInit } from "@angular/core";
 import { Rental } from "src/app/models/rental.model";
 import { RentalService } from "src/app/services/rental.service";
+import { HttpErrorResponse } from "@angular/common/http";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-rental-create",
@@ -10,7 +12,8 @@ import { RentalService } from "src/app/services/rental.service";
 export class RentalCreateComponent implements OnInit {
   newRental: Rental;
   rentalCategories = Rental.CATEGORIES;
-  constructor(private rentalService: RentalService) {}
+  errors: any[] = [];
+  constructor(private rentalService: RentalService, private router: Router) {}
 
   ngOnInit() {
     this.newRental = new Rental();
@@ -18,9 +21,14 @@ export class RentalCreateComponent implements OnInit {
   }
 
   createRental() {
-    this.rentalService
-      .createRental(this.newRental)
-      .subscribe(() => {}, () => {});
+    this.rentalService.createRental(this.newRental).subscribe(
+      (rental: Rental) => {
+        this.router.navigate([`/rentals/${rental._id}`]);
+      },
+      (errorResponse: HttpErrorResponse) => {
+        this.errors = errorResponse.error.err;
+      }
+    );
   }
 
   handleImageChange() {

@@ -8,7 +8,16 @@ router.get(
   UserController.authMiddleware,
   RentalController.getSecret
 );
-router.get("", UserController.authMiddleware, RentalController.get);
+// manage should be 1st here because if it put under /id it will be cached
+router.get(
+  "/manage",
+  UserController.authMiddleware,
+  RentalController.getManage
+);
+router.get("", RentalController.get);
 router.get("/:id", RentalController.getId);
+
 router.post("", UserController.authMiddleware, RentalController.post);
+router.delete("/:id", UserController.authMiddleware, RentalController.delete);
+
 module.exports = router;

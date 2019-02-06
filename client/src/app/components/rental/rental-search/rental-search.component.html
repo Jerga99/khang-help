@@ -1,7 +1,7 @@
 <div class="container">
   <section id="rentalListing">
     <h1 *ngIf="rentals.length > 0" class="page-title">
-      Result Search for: {{ city | ucwords }}
+      Result Search for: {{ city | lowercase | ucwords }}
     </h1>
     <h1 *ngIf="errors.length > 0" class="page-title">
       <p *ngFor="let error of errors">

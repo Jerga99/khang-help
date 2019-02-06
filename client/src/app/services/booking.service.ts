@@ -13,4 +13,8 @@ export class BookingService {
   public createBooking(booking: Booking): Observable<any> {
     return this.httpClient.post(this.rootURL, booking);
   }
+
+  public getUserBookings(): Observable<any> {
+    return this.httpClient.get(this.rootURL + "/manage");
+  }
 }
