@@ -14,10 +14,11 @@ router.get(
   UserController.authMiddleware,
   RentalController.getManage
 );
-router.get("", RentalController.get);
 router.get("/:id", RentalController.getId);
+router.get("", RentalController.get);
 
-router.post("", UserController.authMiddleware, RentalController.post);
+router.patch("/:id", UserController.authMiddleware, RentalController.edit);
 router.delete("/:id", UserController.authMiddleware, RentalController.delete);
+router.post("", UserController.authMiddleware, RentalController.post);
 
 module.exports = router;

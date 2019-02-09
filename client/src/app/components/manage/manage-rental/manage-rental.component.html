@@ -3,13 +3,15 @@
   <div class="row">
     <ng-container *ngIf="rentals && rentals.length > 0">
       <!-- Check for rentals length -->
-      <div *ngFor="let rental of rentals" class="col-md-4">
+      <div *ngFor="let rental of rentals; let i = index" class="col-md-4">
         <!-- Iterate Rentals -->
         <div class="card text-center">
           <div class="card-block">
             <h4 class="card-title">{{ rental.title }} - {{ rental.city }}</h4>
             <!-- Rental Title - Rental City -->
-            <a class="btn btn-ghost" routerLink="/rentals/{{ rental._id }}"
+            <a
+              class="btn btn-ghost rentalbtn"
+              routerLink="/rentals/{{ rental._id }}"
               >Go to Rental</a
             >
             <span *ngIf="rental.bookings.length > 0">
@@ -22,8 +24,31 @@
           <div class="card-footer text-muted">
             <p>Created at {{ rental.createdAt | date }}</p>
             <!-- Created At -->
-            <button type="button" class="btn btn-bwm btn-delete">Delete</button>
+            <button
+              type="button"
+              class="btn btn-bwm btn-delete"
+              (click)="rentalDeleteIndex = i"
+              *ngIf="rentalDeleteIndex !== i"
+            >
+              Delete
+            </button>
+            <!-- the ngIf is whenever we click the delete button the button will disappear -->
             <!-- Delete Rental Button -->
+            <div *ngIf="rentalDeleteIndex === i">
+              <p class="confirm-message">Do you confirm delete?</p>
+              <button
+                class="btn btn-danger"
+                (click)="rentalDeleteIndex = undefined"
+              >
+                No
+              </button>
+              <button
+                class="btn btn-success"
+                (click)="onDeleteRental(rental._id)"
+              >
+                Yes
+              </button>
+            </div>
           </div>
         </div>
       </div>

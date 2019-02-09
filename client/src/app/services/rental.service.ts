@@ -36,4 +36,8 @@ export class RentalService {
   public getUserRentals(): Observable<any> {
     return this.httpClient.get(this.rootURL + "/manage");
   }
+
+  public deleteRental(rentalId: string): Observable<any> {
+    return this.httpClient.delete(this.rootURL + "/" + rentalId);
+  }
 }

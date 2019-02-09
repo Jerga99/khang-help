@@ -26,6 +26,8 @@ import { FormsModule, ReactiveFormsModule } from "@angular/forms";
 import { BookingService } from "src/app/services/booking.service";
 import { RentalSearchComponent } from "./rental-search/rental-search.component";
 import { RentalCreateComponent } from "./rental-create/rental-create.component";
+import { RentalUpdateComponent } from "./rental-update/rental-update.component";
+import { EditableModule } from "../editable/editable.module";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -37,6 +39,11 @@ const routes: Routes = [
       {
         path: "new",
         component: RentalCreateComponent,
+        canActivate: [AuthGuard]
+      },
+      {
+        path: ":rentalId/edit",
+        component: RentalUpdateComponent,
         canActivate: [AuthGuard]
       },
       {
@@ -56,7 +63,8 @@ const routes: Routes = [
     RentalDetailComponent,
     RentalDetailBookingComponent,
     RentalSearchComponent,
-    RentalCreateComponent
+    RentalCreateComponent,
+    RentalUpdateComponent
   ],
   imports: [
     CommonModule,
@@ -66,7 +74,8 @@ const routes: Routes = [
     MapModule,
     Daterangepicker,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    EditableModule
   ],
 
   // service inside the providers:

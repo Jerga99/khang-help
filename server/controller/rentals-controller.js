@@ -147,3 +147,43 @@ exports.get = (req, res) => {
       return res.json(foundRental);
     });
 };
+
+exports.edit = (req, res, next) => {
+  const rentalData = req.body;
+  const user = res.locals.user;
+
+  Rental.findById(req.params.id)
+    .populate("user")
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({
+          errors: normalizeErrors(err.errors)
+        });
+      }
+      if (foundRental.user.id !== user.id) {
+        res.status(422).send({
+          err: [
+            {
+              title: "Invalid User!",
+              detail: "You're not the owner of this rental"
+            }
+          ]
+        });
+      }
+
+      foundRental.set(rentalData);
+      foundRental.save(err => {
+        if (user.id !== foundRental.user.id) {
+          res.status(422).send({
+            err: [
+              {
+                title: "Invalid User!",
+                detail: "You're not the owner of this rental"
+              }
+            ]
+          });
+        }
+        return res.status(200).json(foundRental);
+      });
+    });
+};
