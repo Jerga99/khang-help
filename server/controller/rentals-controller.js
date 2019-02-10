@@ -19,6 +19,31 @@ exports.getManage = (req, res) => {
     });
 };
 
+// only owner can edit their own rental
+exports.verifyUser = (req, res) => {
+  const user = res.locals.user;
+
+  Rental.findById(req.params.id)
+    .populate("user")
+    .exec((err, foundRental) => {
+      if (err) {
+        return res.status(422).send({ errors: normalizeErrors(err.errors) });
+      }
+
+      if (foundRental.user.id !== user.id) {
+        res.status(422).send({
+          err: [
+            {
+              title: "Invalid User!",
+              detail: "You're not the owner of this rental"
+            }
+          ]
+        });
+      }
+      return res.json({ status: "verified" });
+    });
+};
+
 exports.getId = (req, res) => {
   const rentalId = req.params.id;
   Rental.findById(rentalId)

@@ -1,15 +1,18 @@
 <div [ngStyle]="style">
-  <input
+  <select
     *ngIf="isActiveInput"
-    type="type"
+    [(ngModel)]="entity[entityField]"
+    class="{{ className }}"
     (keydown.escape)="cancelUpdate()"
     (keyup.enter)="updateEntity()"
-    [(ngModel)]="entity[entityField]"
-    [value]="entity[entityField]"
-    class="{{ className }}"
-  />
+  >
+    <option [selected]="entity[entityField] === undefined" disabled>---</option>
+    <option *ngFor="let option of options" [ngValue]="option">{{
+      option
+    }}</option>
+  </select>
   <span *ngIf="!isActiveInput" class="{{ className }}inline">{{
-    transformView(entity[entityField])
+    entity[entityField]
   }}</span>
 
   <div class="inline">

@@ -15,7 +15,7 @@ import {
   HttpClientModule
 } from "@angular/common/http";
 
-import { NgPipesModule } from "ngx-pipes";
+import { NgPipesModule, UcWordsPipe } from "ngx-pipes";
 import { MapModule } from "../map/map.module";
 import { AuthGuard } from "../auth/auth.guard";
 
@@ -28,6 +28,7 @@ import { RentalSearchComponent } from "./rental-search/rental-search.component";
 import { RentalCreateComponent } from "./rental-create/rental-create.component";
 import { RentalUpdateComponent } from "./rental-update/rental-update.component";
 import { EditableModule } from "../editable/editable.module";
+import { RentalGuard } from "./rental.guard";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -44,7 +45,7 @@ const routes: Routes = [
       {
         path: ":rentalId/edit",
         component: RentalUpdateComponent,
-        canActivate: [AuthGuard]
+        canActivate: [AuthGuard, RentalGuard]
       },
       {
         path: ":rentalId",
@@ -79,6 +80,13 @@ const routes: Routes = [
   ],
 
   // service inside the providers:
-  providers: [RentalService, HttpClient, HelperService, BookingService]
+  providers: [
+    RentalService,
+    HttpClient,
+    HelperService,
+    BookingService,
+    UcWordsPipe,
+    RentalGuard
+  ]
 })
 export class RentalModule {}

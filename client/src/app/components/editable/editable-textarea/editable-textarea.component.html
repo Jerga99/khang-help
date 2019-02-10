@@ -1,15 +1,16 @@
 <div [ngStyle]="style">
-  <input
+  <textarea
     *ngIf="isActiveInput"
-    type="type"
-    (keydown.escape)="cancelUpdate()"
-    (keyup.enter)="updateEntity()"
     [(ngModel)]="entity[entityField]"
     [value]="entity[entityField]"
+    (keydown.escape)="cancelUpdate()"
+    (keyup.enter)="updateEntity()"
     class="{{ className }}"
-  />
+    rows="{{ rows }}"
+    cols="{{ cols }}"
+  ></textarea>
   <span *ngIf="!isActiveInput" class="{{ className }}inline">{{
-    transformView(entity[entityField])
+    entity[entityField]
   }}</span>
 
   <div class="inline">

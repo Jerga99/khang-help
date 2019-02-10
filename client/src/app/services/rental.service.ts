@@ -40,4 +40,12 @@ export class RentalService {
   public deleteRental(rentalId: string): Observable<any> {
     return this.httpClient.delete(this.rootURL + "/" + rentalId);
   }
+
+  public updateRental(rentalId: string, rentalData: any) {
+    return this.httpClient.patch(this.rootURL + "/" + rentalId, rentalData);
+  }
+
+  public verifyRentalUser(rentalId: string): Observable<any> {
+    return this.httpClient.get(this.rootURL + `/${rentalId}/verify-user`);
+  }
 }
