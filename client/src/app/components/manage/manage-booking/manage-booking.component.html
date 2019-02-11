@@ -3,7 +3,7 @@
   <div class="row">
     <ng-container *ngIf="bookings && bookings.length > 0">
       <!-- Check for bookings length -->
-      <div *ngFor="let booking of bookings" class="col-md-4">
+      <div *ngFor="let booking of bookings; let i = index" class="col-md-4">
         <!-- Iterate bookings here -->
         <div class="card text-center">
           <div class="card-header">
@@ -14,7 +14,7 @@
           <div class="card-block">
             <ng-container *ngIf="booking.rental">
               <h4 class="card-title">
-                {{ booking.rental.title }} - {{ booking.rental.city }}
+                {{ booking.rental.title }} - {{ booking.rental.city | ucwords }}
               </h4>
               <!-- rental title and city -->
               <p class="card-text booking-desc">
@@ -37,7 +37,7 @@
             <a
               *ngIf="booking.rental"
               class="btn btn-bwm"
-              routerLink="/rentals/${booking.rental._id}"
+              routerLink="/rentals/{{ booking.rental._id }}"
               >Go to Rental</a
             >
             <!-- link to rental detail -->

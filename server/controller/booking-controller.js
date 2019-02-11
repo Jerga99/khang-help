@@ -9,7 +9,7 @@ exports.getUserBookings = (req, res) => {
 
   // key and value is the same so we can just write user here
   Booking.where({ user })
-    .populate("rentals")
+    .populate("rental")
     .exec((err, foundBookings) => {
       if (err) {
         return res.status(422).send({ errors: normalizeErrors(err.errors) });

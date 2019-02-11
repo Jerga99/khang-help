@@ -31,7 +31,7 @@ exports.verifyUser = (req, res) => {
       }
 
       if (foundRental.user.id !== user.id) {
-        res.status(422).send({
+        return res.status(422).send({
           err: [
             {
               title: "Invalid User!",
