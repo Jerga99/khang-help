@@ -8,7 +8,7 @@ import { Booking } from "src/app/models/booking.model";
   styleUrls: ["./manage-booking.component.scss"]
 })
 export class ManageBookingComponent implements OnInit {
-  bookings: Booking[];
+  bookings: Booking[] = [];
 
   constructor(private bookingService: BookingService) {}
 

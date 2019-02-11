@@ -14,9 +14,13 @@ router.get(
   UserController.authMiddleware,
   RentalController.getManage
 );
-router.get("/:id", RentalController.getId);
+router.get(
+  "/:id/verify-user",
+  UserController.authMiddleware,
+  RentalController.verifyUser
+);
 router.get("", RentalController.get);
-
+router.get("/:id", RentalController.getId);
 router.patch("/:id", UserController.authMiddleware, RentalController.edit);
 router.delete("/:id", UserController.authMiddleware, RentalController.delete);
 router.post("", UserController.authMiddleware, RentalController.post);
