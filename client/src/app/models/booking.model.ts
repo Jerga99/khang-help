@@ -11,4 +11,5 @@ export class Booking {
   days: number;
   createdAt: string;
   rental: Rental;
+  paymentToken: any;
 }
