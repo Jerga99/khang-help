@@ -27,10 +27,9 @@ import { ManageModule } from "./components/manage/manage.module";
     NgbModule,
     ToastrModule.forRoot(),
     BrowserAnimationsModule,
-    ManageModule,
-
+    ManageModule
   ],
   providers: [HttpClient],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}

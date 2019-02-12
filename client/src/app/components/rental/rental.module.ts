@@ -29,7 +29,8 @@ import { RentalCreateComponent } from "./rental-create/rental-create.component";
 import { RentalUpdateComponent } from "./rental-update/rental-update.component";
 import { EditableModule } from "../editable/editable.module";
 import { RentalGuard } from "./rental.guard";
-import { ImageUploadModule } from '../image-upload/image-upload.module';
+import { ImageUploadModule } from "../image-upload/image-upload.module";
+import { PaymentModule } from "../payment/payment.module";
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -78,7 +79,8 @@ const routes: Routes = [
     FormsModule,
     ReactiveFormsModule,
     EditableModule,
-    ImageUploadModule
+    ImageUploadModule,
+    PaymentModule
   ],
 
   // service inside the providers:
@@ -91,4 +93,4 @@ const routes: Routes = [
     RentalGuard
   ]
 })
-export class RentalModule { }
+export class RentalModule {}
