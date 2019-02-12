@@ -22,9 +22,10 @@ const fileFilter = (req, file, cb) => {
 const upload = multer({
   fileFilter,
   storage: multerS3({
+    acl: 'public-read',
     s3,
     bucket: "rental-khang",
-    acl: 'public-read',
+
     metadata: function (req, file, cb) {
       cb(null, { fieldName: 'TESTING_METADATA' });
     },

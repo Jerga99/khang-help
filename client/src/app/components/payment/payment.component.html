@@ -1,0 +1,24 @@
+<form (ngSubmit)="onSubmit()">
+  <div class="group">
+    <label>
+      <span>Card Number</span>
+      <div #cardNumber class="field"></div>
+    </label>
+
+    <label>
+      <span>Expired Date</span>
+      <div #cardExpiry class="field"></div>
+    </label>
+
+    <label>
+      <span>CVC</span>
+      <div #cardCvc class="field"></div>
+    </label>
+  </div>
+  <button type="submit">Submit, You will not be charged yet</button>
+  <div class="outcome">
+    <div class="error">
+
+    </div>
+  </div>
+</form>
