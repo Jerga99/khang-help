@@ -13,7 +13,7 @@ export class RentalCreateComponent implements OnInit {
   newRental: Rental;
   rentalCategories = Rental.CATEGORIES;
   errors: any[] = [];
-  constructor(private rentalService: RentalService, private router: Router) {}
+  constructor(private rentalService: RentalService, private router: Router) { }
 
   ngOnInit() {
     this.newRental = new Rental();
@@ -30,6 +30,15 @@ export class RentalCreateComponent implements OnInit {
       }
     );
   }
+
+  handleImageUpload(imageUrl: string) {
+    this.newRental.image = imageUrl
+  }
+
+  handleImageError() {
+    this.newRental.image = undefined
+  }
+
 
   handleImageChange() {
     this.newRental.image =

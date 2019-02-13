@@ -3,7 +3,9 @@ const Rental = require("../models/rental");
 const { normalizeErrors } = require("../helpers/mongoose");
 const moment = require("moment");
 const User = require("../models/user");
-
+const config = require('../config/dev')
+const stripe = require('stripe')(config.STRIPE_SECRET_KEY)
+const Payment = require('../models/payment')
 exports.getUserBookings = (req, res) => {
   const user = res.locals.user;
 
@@ -19,7 +21,7 @@ exports.getUserBookings = (req, res) => {
 };
 
 exports.create = (req, res) => {
-  const { startAt, endAt, totalPrice, guests, days, rental } = req.body;
+  const { startAt, endAt, totalPrice, guests, days, rental, paymentToken } = req.body;
   const user = res.locals.user;
 
   const booking = new Booking({
@@ -63,7 +65,7 @@ exports.create = (req, res) => {
           foundRental.save();
           User.update(
             { _id: user.id },
-            { $push: { bookings: booking }, function() {} }
+            { $push: { bookings: booking }, function() { } }
           );
           return res.json({ startAt: booking.startAt, endAt: booking.endAt });
         });
@@ -83,6 +85,10 @@ exports.create = (req, res) => {
 };
 
 isValidBooking = (proposedBooking, rental) => {
+
+  const payment = createPayment(booking, foundRental.user, paymentToken);
+
+
   let isValid = true;
   if (rental.bookings && rental.bookings.length > 0) {
     isValid = rental.bookings.every(booking => {
@@ -101,3 +107,26 @@ isValidBooking = (proposedBooking, rental) => {
 
   return isValid;
 };
+
+createPayment = async (booking, toUser, token) => {
+  const { user } = booking;
+
+  const customer = await stripe.customers.create({
+    source: token.id,
+    email: user.email
+  })
+
+  if (customer) {
+    // user that we want to charge
+    User.update({ _id: user._id }, {
+      $set: {
+        stripeCustomerId:
+          customer.id
+      }
+    }, () => { })
+
+    const payment = new Payment();
+  } else {
+    return { err: 'Cannot process Payment!' }
+  }
+}

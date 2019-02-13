@@ -31,7 +31,7 @@
 
           <div class="form-group">
 
-            <app-image-upload>
+            <app-image-upload (imageUploaded)="handleImageUpload($event)" (imageError)="handleImageError()">
 
 
             </app-image-upload>
@@ -45,8 +45,9 @@
 
           <div class="form-group">
             <label for="description">Description</label>
-            <textarea type="text" class="form-control" id="description" name="description"
-              [(ngModel)]="newRental.description" required>
+            <textarea type="text" class="form-control" id="description" name="description" [(ngModel)]="newRental.description"
+              required>
+
             </textarea>
           </div>
 
@@ -56,8 +57,8 @@
               <div class="input-group-prepend">
                 <div class="input-group-text">$</div>
               </div>
-              <input type="number" name="dailyRate" class="form-control" id="dailyRate"
-                [(ngModel)]="newRental.dailyRate" required />
+              <input type="number" name="dailyRate" class="form-control" id="dailyRate" [(ngModel)]="newRental.dailyRate"
+                required />
             </div>
           </div>
 
@@ -65,7 +66,7 @@
             <label for="shared">Shared</label>
             <input type="checkbox" class="form-control" id="shared" />
           </div>
-          <button [disabled]="!rentalForm.form.valid" (click)="createRental()" type="button" class="btn btn-bwm">
+          <button [disabled]="!rentalForm.form.valid || !newRental.image" (click)="createRental()" type="button" class="btn btn-bwm">
             Submit
           </button>
         </form>

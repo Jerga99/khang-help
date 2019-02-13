@@ -50,7 +50,7 @@ export class RentalDetailBookingComponent implements OnInit {
     public authService: AuthService,
     private bookingService: BookingService,
     private toastr: ToastrService
-  ) {}
+  ) { }
 
   ngOnInit() {
     this.newBooking = new Booking();
@@ -101,6 +101,10 @@ export class RentalDetailBookingComponent implements OnInit {
     this.picker.datePicker.setStartDate(moment());
     this.picker.datePicker.setEndDate(moment());
     this.picker.datePicker.element.val("");
+  }
+
+  onPaymentConfirmed(paymentToken: any) {
+    this.newBooking.paymentToken = paymentToken
   }
 
   createBooking() {

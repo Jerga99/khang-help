@@ -1,12 +1,15 @@
 form {
     margin: 20px 0;
   }
+
+  form.loading{
+    opacity: 0.5;
+  }
   
   .group {
     background: white;
     box-shadow: 0 7px 14px 0 rgba(49, 49, 93, 0.10), 0 3px 6px 0 rgba(0, 0, 0, 0.08);
     border-radius: 4px;
-    margin-bottom: 20px;
   }
   
   label {
@@ -74,13 +77,16 @@ form {
   button:active {
     background: #43458B;
   }
+
+  button:disabled{
+    opacity: 0.5;
+  }
   
   .outcome {
     float: left;
     width: 100%;
     padding-top: 8px;
     min-height: 24px;
-    text-align: center;
   }
   
   .error {
