@@ -74,17 +74,14 @@ export class PaymentComponent implements OnInit, OnDestroy {
     return this.cardNumber._complete &&
       this.cardExp._complete && this.cardCvc._complete
   }
-
-
-
   ngOnDestroy() {
     this.cardNumber.removeEventListener('change', this.onChange)
     this.cardExp.removeEventListener('change', this.onChange)
     this.cardCvc.removeEventListener('change', this.onChange)
 
     this.cardNumber.destroy();
-    this.cardNumber.destroy();
-    this.cardNumber.destroy();
+    this.cardExp.destroy();
+    this.cardCvc.destroy();
   }
 }
 

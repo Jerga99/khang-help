@@ -5,6 +5,8 @@ const moment = require("moment");
 const User = require("../models/user");
 const config = require('../config/dev')
 const stripe = require('stripe')(config.STRIPE_SECRET_KEY)
+
+const CUSTOMER_SHARE = 0.8
 const Payment = require('../models/payment')
 exports.getUserBookings = (req, res) => {
   const user = res.locals.user;
@@ -20,6 +22,8 @@ exports.getUserBookings = (req, res) => {
     });
 };
 
+
+
 exports.create = (req, res) => {
   const { startAt, endAt, totalPrice, guests, days, rental, paymentToken } = req.body;
   const user = res.locals.user;
@@ -34,7 +38,7 @@ exports.create = (req, res) => {
   Rental.findById(rental._id)
     .populate("bookings")
     .populate("user")
-    .exec((err, foundRental) => {
+    .exec(async (err, foundRental) => {
       if (err) {
         return res.status(422).send({
           errors: normalizeErrors(err.errors)
@@ -55,21 +59,35 @@ exports.create = (req, res) => {
         booking.user = user;
         booking.rental = foundRental;
         foundRental.bookings.push(booking);
+        const { payment, error } = await createPayment(booking, foundRental.user, paymentToken)
 
-        booking.save(err => {
-          if (err) {
-            return res.status(422).send({
-              errors: normalizeErrors(err.errors)
-            });
-          }
-          foundRental.save();
-          User.update(
-            { _id: user.id },
-            { $push: { bookings: booking }, function() { } }
-          );
-          return res.json({ startAt: booking.startAt, endAt: booking.endAt });
-        });
+        if (payment) {
 
+          booking.payment = booking.payment
+
+          booking.save(err => {
+            if (err) {
+              return res.status(422).send({
+                errors: normalizeErrors(err.errors)
+              });
+            }
+            foundRental.save();
+            User.update(
+              { _id: user.id },
+              { $push: { bookings: booking }, function() { } }
+            );
+            return res.json({ startAt: booking.startAt, endAt: booking.endAt });
+          });
+        } else {
+          return res.status(422).send({
+            err: [
+              {
+                title: "Invalid Payment",
+                detail: error
+              }
+            ]
+          });
+        }
         // UPDATE rental update user
       } else {
         return res.status(422).send({
@@ -86,7 +104,6 @@ exports.create = (req, res) => {
 
 isValidBooking = (proposedBooking, rental) => {
 
-  const payment = createPayment(booking, foundRental.user, paymentToken);
 
 
   let isValid = true;
@@ -111,6 +128,9 @@ isValidBooking = (proposedBooking, rental) => {
 createPayment = async (booking, toUser, token) => {
   const { user } = booking;
 
+
+
+
   const customer = await stripe.customers.create({
     source: token.id,
     email: user.email
@@ -125,7 +145,22 @@ createPayment = async (booking, toUser, token) => {
       }
     }, () => { })
 
-    const payment = new Payment();
+    const payment = new Payment({
+      fromUser: user,
+      toUser,
+      fromStripeCustomerId: customer.id,
+      booking,
+      tokenId: token.id,
+      // we just want to give the user 80%, we keep the 20%
+      amount: booking.totalPrice * 100 * CUSTOMER_SHARE
+    });
+
+    try {
+      const savedPayment = await payment.save()
+      return { payment: savedPayment }
+    } catch (error) {
+      return { error: error.message }
+    }
   } else {
     return { err: 'Cannot process Payment!' }
   }
