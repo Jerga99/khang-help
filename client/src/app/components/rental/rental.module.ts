@@ -31,6 +31,7 @@ import { EditableModule } from "../editable/editable.module";
 import { RentalGuard } from "./rental.guard";
 import { ImageUploadModule } from "../image-upload/image-upload.module";
 import { PaymentModule } from "../payment/payment.module";
+import { StarRatingModule } from 'angular-star-rating';
 const routes: Routes = [
   // we still have route on app-routing-module
   // we do redirecto , pathmatch on the approuting
@@ -80,7 +81,8 @@ const routes: Routes = [
     ReactiveFormsModule,
     EditableModule,
     ImageUploadModule,
-    PaymentModule
+    PaymentModule,
+    StarRatingModule
   ],
 
   // service inside the providers:
@@ -93,4 +95,4 @@ const routes: Routes = [
     RentalGuard
   ]
 })
-export class RentalModule {}
+export class RentalModule { }

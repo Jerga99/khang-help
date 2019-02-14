@@ -13,6 +13,7 @@ const rentalRoutes = require("../server/routes/rentals"),
 bookingRoute = require("../server/routes/bookings");
 imageUploadRoute = require("../server/routes/image-upload");
 paymentRoute = require('../server/routes/payment')
+reviewRoute = require('./routes/reviews')
 
 const cors = require("cors");
 const bodyParser = require("body-parser");
@@ -35,7 +36,8 @@ app.use("/api/rentals", rentalRoutes);
 app.use("/api/users", userRoutes);
 app.use("/api/bookings", bookingRoute);
 app.use("/api", imageUploadRoute);
-app.use('/api/payment', paymentRoute)
+app.use('/api/payment', paymentRoute);
+app.use('/api/reviews', reviewRoute)
 //
 const PORT = process.env.PORT || 3001;
 
