@@ -11,6 +11,7 @@ const { normalizeErrors } = require('../helpers/mongoose');
 exports.getReviews = function (req, res) {
     const { rentalId } = req.query;
 
+    // 
     Review.find({ 'rental': rentalId })
         .populate('user')
         .exec((err, reviews) => {
@@ -35,13 +36,11 @@ exports.createReview = function (req, res) {
         .populate('review')
         .populate('user')
         .exec(async (err, foundBooking) => {
-
             if (err) {
                 return res.status(422).send({ errors: normalizeErrors(err.errors) });
             }
 
             const { rental } = foundBooking;
-
             if (rental.user.id === user.id) {
                 return res.status(422).send({ errors: [{ title: 'Invalid User!', detail: 'Cannot create review on your Rental!' }] });
             }
@@ -86,8 +85,11 @@ exports.createReview = function (req, res) {
 exports.getRentalRating = function (req, res) {
     const rentalId = req.params.id;
 
+    // group value multiple together
     Review.aggregate([
+        // 
         { "$unwind": "$rental" },
+        // 
         {
             "$group": {
                 "_id": rentalId,

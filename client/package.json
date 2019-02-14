@@ -1,13 +1,18 @@
 {
   "name": "rental",
   "version": "0.0.0",
+  "engines": {
+    "node": "11.3.0",
+    "npm": "6.7.0"
+  },
   "scripts": {
     "ng": "ng",
     "start": "ng serve ",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
-    "e2e": "ng e2e"
+    "e2e": "ng e2e",
+    "heroku-postbuild": "npm run build"
   },
   "private": true,
   "dependencies": {

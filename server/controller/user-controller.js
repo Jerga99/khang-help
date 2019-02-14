@@ -1,7 +1,7 @@
 const User = require("../models/user");
 const { normalizeErrors } = require("../helpers/mongoose");
 
-const config = require("../config/dev");
+const config = require("../config/index");
 
 const jwt = require("jsonwebtoken");
 

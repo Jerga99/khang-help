@@ -45,8 +45,8 @@ export class ManageBookingComponent implements OnInit {
         payment.status = 'paid';
 
       },
-      () => {
-
+      (err) => {
+        console.log(err)
       }
 
     )

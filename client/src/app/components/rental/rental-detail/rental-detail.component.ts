@@ -4,7 +4,7 @@ import { RentalService } from "src/app/services/rental.service";
 import { Rental } from "src/app/models/rental.model";
 import { Review } from '../../../models/review.model';
 import { ReviewService } from '../../../services/review.service';
-
+import * as moment from 'moment'
 @Component({
   selector: "app-rental-detail",
   templateUrl: "./rental-detail.component.html",
@@ -13,7 +13,7 @@ import { ReviewService } from '../../../services/review.service';
 export class RentalDetailComponent implements OnInit {
   currentId: string;
   rental: Rental;
-
+  rating: number;
   reviews: Review[] = []
   constructor(
     private route: ActivatedRoute,
@@ -41,9 +41,21 @@ export class RentalDetailComponent implements OnInit {
       .subscribe(
         (reviews: Review[]) => {
           this.reviews = reviews;
+          this.getOverallRating(this.rental._id);
         },
         () => {
 
         })
+  }
+
+  formatDate(date: string): string {
+    return `${moment(date).fromNow()}`
+  }
+
+  getOverallRating(rentalId: string) {
+    this.reviewService.getOverallRating(rentalId)
+      .subscribe(rating => {
+        this.rating = Math.round(rating * 10) / 10;
+      })
   }
 }

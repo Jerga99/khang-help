@@ -58,7 +58,7 @@
             Created {{payment.booking.createdAt | date}}
 
             <div *ngIf="payment.status === 'pending'">
-              <button class='btn btn-success' (click)="acceptPayment(payment)">Confirm</button>
+              <button class='btn btn-success accept' (click)="acceptPayment(payment)">Confirm</button>
               <button class='btn btn-danger' (click)="declinePayment(payment)">Decline</button>
             </div>
 

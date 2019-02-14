@@ -1,6 +1,6 @@
 const { normalizeErrors } = require("../helpers/mongoose");
 const Payment = require('../models/payment')
-const config = require('../config/dev')
+const config = require('../config/index')
 const stripe = require('stripe')(config.STRIPE_SECRET_KEY)
 const Booking = require('../models/booking')
 const Rental = require('../models/rental')
@@ -28,7 +28,7 @@ exports.getPendingPayment = (req, res) => {
 exports.confirmPayment = (req, res) => {
     const payment = req.body;
 
-    const { booking } = payment;
+    // const { booking } = payment;
 
     const user = res.locals.user
 
@@ -46,7 +46,7 @@ exports.confirmPayment = (req, res) => {
                 const charge = await stripe.charges.create({
                     // strip use cents so we have to * 100
                     amount: booking.totalPrice * 100,
-                    currencry: 'usd',
+                    currency: 'usd',
                     customer: payment.fromStripeCustomerId
                 })
 

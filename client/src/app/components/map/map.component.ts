@@ -21,7 +21,7 @@ export class MapComponent implements OnInit, OnDestroy {
   isPositionError: boolean = false;
   lat: any;
   lng: any;
-  constructor(private mapService: MapService, private ref: ChangeDetectorRef) {}
+  constructor(private mapService: MapService, private ref: ChangeDetectorRef) { }
 
   ngOnInit() {
     if (this.locationSubject) {
@@ -40,6 +40,7 @@ export class MapComponent implements OnInit, OnDestroy {
       },
       () => {
         this.isPositionError = true;
+        this.ref.detectChanges()
       }
     );
   }

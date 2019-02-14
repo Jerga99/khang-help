@@ -29,6 +29,10 @@
             <span><i class="fa fa-bed"></i> {{ rental.bedrooms + 2 }} beds</span>
           </div>
           <p class="rental-description">{{ rental.description | uppercase }}</p>
+
+          <div class="rental-rating">
+            <span>{{rating}} / 5</span>
+          </div>
           <hr />
           <div class="rental-assets">
             <h3 class="title">Assets</h3>
@@ -63,13 +67,16 @@
               <div class="row">
                 <div class="col-md-2">
                   <img src="https://image.ibb.co/jw55Ex/def_face.jpg" class="img img-rounded img-fluid" />
-                  <p class="text-secondary text-center">{{review.createdAt}}</p>
+                  <small>
+                    <p class="text-secondary text-center">{{formatDate(review.createdAt)}}</p>
+                  </small>
                 </div>
                 <div class="col-md-10">
                   <div>
                     <a><strong>{{review.user.username}}</strong></a>
                     <div class="review-section">
-                      <star-rating [starType]="'svg'" [numOfStars]="5" [showHalfStars]="true" [rating]="review.rating">
+                      <star-rating [starType]="'svg'" [numOfStars]="5" [showHalfStars]="true" [rating]="review.rating"
+                        [disabled]="true">
                       </star-rating>
                     </div>
                   </div>

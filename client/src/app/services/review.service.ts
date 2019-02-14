@@ -18,4 +18,8 @@ export class ReviewService {
         return this.httpClient.get(this.rootURL + `?rentalId=${rentalId}`)
     }
 
+    public getOverallRating(rentalId: string): Observable<any> {
+        return this.httpClient.get(this.rootURL + `/${rentalId}/rating`)
+    }
+
 }

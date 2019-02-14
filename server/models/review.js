@@ -11,6 +11,8 @@ const reviewSchema = new Schema({
 module.exports = mongoose.model('Review', reviewSchema)
 
 reviewSchema.pre('save', (next) => {
+    // we check if the rating has to be under 5 
+    // before 'save'
     if (ALLOWED_RATINGS.indexOf(this.rating) >= 0) {
         next()
     } else {
