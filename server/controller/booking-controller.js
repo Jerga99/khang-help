@@ -4,7 +4,7 @@ const { normalizeErrors } = require("../helpers/mongoose");
 const moment = require("moment");
 const User = require("../models/user");
 const config = require('../config/dev')
-const stripe = require('stripe')(config.STRIPE_SECRET_KEY)
+const stripe = require('stripe')(config.STRIPE_SK)
 
 const CUSTOMER_SHARE = 0.8
 const Payment = require('../models/payment')

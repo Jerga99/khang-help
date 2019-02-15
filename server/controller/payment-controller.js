@@ -17,7 +17,7 @@ exports.getPendingPayment = (req, res) => {
                 return res.status(422).send({ errors: normalizeErrors(err.errors) })
             }
 
-            // return res.json(foundPayment)
-            return res.json({ success: 'OK' })
+            return res.json(foundPayment)
+            // return res.json({ success: 'OK' })
         })
 }

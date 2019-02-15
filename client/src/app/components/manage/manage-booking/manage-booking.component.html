@@ -12,7 +12,7 @@
             <!-- rental category -->
           </div>
           <div class="card-block">
-            <ng-container *ngIf="booking.rental">
+            <ng-container *ngIf="booking && booking.rental">
               <h4 class="card-title">
                 {{ booking.rental.title }} - {{ booking.rental.city | ucwords }}
               </h4>
@@ -67,7 +67,7 @@
           <!-- rental category -->
         </div>
         <div class="card-block">
-          <ng-container *ngIf="booking.rental">
+          <ng-container *ngIf="payment.booking.rental">
             <h4 class="card-title">
               {{ payment.booking.rental.title }} - {{ payment.booking.rental.city | ucwords }}
             </h4>
@@ -87,7 +87,7 @@
             <span class="booking-price-value">{{ payment.amount / 100}} $</span>
           </p>
           <!-- booking price -->
-          <a *ngIf="booking.rental" class="btn btn-bwm" routerLink="/rentals/{{ booking.rental._id }}">Go to Rental</a>
+          <a *ngIf="payment.booking.rental" class="btn btn-bwm" routerLink="/rentals/{{ payment.booking.rental._id }}">Go to Rental</a>
           <!-- link to rental detail -->
         </div>
         <div class="card-footer text-muted">

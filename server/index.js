@@ -9,7 +9,7 @@ const Rental = require("./models/rental");
 const FakeDb = require("./models/fake-db");
 
 const rentalRoutes = require("../server/routes/rentals"),
-  userRoutes = require("../server/routes/users");
+userRoutes = require("../server/routes/users");
 bookingRoute = require("../server/routes/bookings");
 imageUploadRoute = require("../server/routes/image-upload");
 paymentRoute = require('../server/routes/payment')

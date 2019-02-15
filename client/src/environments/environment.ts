@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  STRIPE_PK: 'pk_test_QttNVKuKdk2QFUQ5eJYiVban'
+  STRIPE_PK: 'pk_test_HgtMD9wHltUMpDw2mK4VbF6l'
 };
 
 /*

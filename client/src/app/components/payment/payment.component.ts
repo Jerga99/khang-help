@@ -52,9 +52,11 @@ export class PaymentComponent implements OnInit, OnDestroy {
 
   onChange({ error }) {
     if (error) {
+    debugger
       this.error = error.message;
-    }
+    } else {
     this.error = '';
+    }
   }
 
   async onSubmit() {

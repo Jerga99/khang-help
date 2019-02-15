@@ -4,6 +4,7 @@
 /dist
 /tmp
 /out-tsc
+/node_modules
 
 #Hide API key
 /src/app/components/map/map.module.ts
