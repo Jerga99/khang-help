@@ -7,7 +7,7 @@ import { HttpClient } from "@angular/common/http";
   providedIn: "root"
 })
 export class RentalService {
-  private readonly rootURL = "http://localhost:3001/api/rentals";
+  private readonly rootURL = "https://khang-test.herokuapp.com/api/rentals";
   constructor(private httpClient: HttpClient) {}
 
   public getRentalById(rentalId: string): Observable<any> {
