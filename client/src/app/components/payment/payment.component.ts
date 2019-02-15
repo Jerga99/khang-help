@@ -55,7 +55,7 @@ export class PaymentComponent implements OnInit, OnDestroy {
     debugger
       this.error = error.message;
     } else {
-    this.error = '';
+      this.error = '';
     }
   }
 

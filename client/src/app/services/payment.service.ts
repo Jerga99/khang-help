@@ -11,4 +11,12 @@ export class PaymentService {
   public getPendingPayments(): Observable<any> {
     return this.httpClient.get(this.rootURL)
   }
+
+  public acceptPayment(payment: string): Observable<any> {
+    return this.httpClient.post(this.rootURL + '/accept', payment)
+  }
+
+  public declinePayment(payment: string): Observable<any> {
+    return this.httpClient.post(this.rootURL + '/decline', payment)
+  }
 }
